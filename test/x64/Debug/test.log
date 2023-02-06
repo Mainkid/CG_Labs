@@ -1,0 +1,4 @@
+﻿  test.cpp
+C:\Users\jdczy\source\repos\test\test\test.cpp(229,73): warning C4267: =: преобразование из "size_t" в "UINT"; возможна потеря данных
+C:\Users\jdczy\source\repos\test\test\test.cpp(246,59): warning C4267: =: преобразование из "size_t" в "UINT"; возможна потеря данных
+  test.vcxproj -> C:\Users\jdczy\source\repos\test\x64\Debug\test.exe
