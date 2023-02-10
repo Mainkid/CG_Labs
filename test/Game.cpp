@@ -25,6 +25,7 @@ HWND Game::GetWindow32HWND()
 
 void Game::SetFeatureLevel()
 {
+
 }
 
 void Game::SetSwapDesc(int buffCount, int RefreshRateNum, int RefreshRateDenominator, bool isWindowed)
@@ -108,7 +109,7 @@ void Game::CompileFromFile(LPCWSTR fileName)
 
 }
 
-void Game::Render()
+void Game::PreRender()
 {
 
 	D3D_SHADER_MACRO Shader_Macros[] = { "TEST", "1", "TCOLOR", "float4(0.0f, 1.0f, 0.0f, 1.0f)", nullptr, nullptr };
@@ -206,85 +207,86 @@ void Game::Render()
 
 }
 
-void Game::Update()
+void Game::StartGameLoop()
 {
 	PrevTime = std::chrono::steady_clock::now();
 
-	MSG msg = {};
-	
+	while (wInput->ProcessMessages()) {
 
-
-	while (wInput->ProcessMessages()==true) {
-
-		while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-			
-		}
-
-		// If windows signals to end the application then exit out.
-		if (msg.message == WM_QUIT) {
-			isExitRequested = true;
-		}
-
-		//wInput->UpdateInput();
-		//wInput->IsKeyDown(VK_LEFT);
-
-		context->ClearState();
-
-		context->RSSetState(rastState);
-
-		D3D11_VIEWPORT viewport = {};
-		viewport.Width = static_cast<float>(800);
-		viewport.Height = static_cast<float>(800);
-		viewport.TopLeftX = 0;
-		viewport.TopLeftY = 0;
-		viewport.MinDepth = 0;
-		viewport.MaxDepth = 1.0f;
-
-		context->RSSetViewports(1, &viewport);
-
-		context->IASetInputLayout(layout);
-		context->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		context->IASetIndexBuffer(ib, DXGI_FORMAT_R32_UINT, 0);
-		context->IASetVertexBuffers(0, 1, &vb, strides, offsets);
-		context->VSSetShader(vertexShader, nullptr, 0);
-		context->PSSetShader(pixelShader, nullptr, 0);
-
-
-		auto	curTime = std::chrono::steady_clock::now();
-		float	deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(curTime - PrevTime).count() / 1000000.0f;
-		PrevTime = curTime;
-
-		totalTime += deltaTime;
-		frameCount++;
-
-		if (totalTime > 1.0f) {
-			float fps = frameCount / totalTime;
-
-			totalTime -= 1.0f;
-
-			WCHAR text[256];
-			swprintf_s(text, TEXT("FPS: %f"), fps);
-			SetWindowText(GetWindow32HWND(), text);
-
-			frameCount = 0;
-		}
-
-		context->OMSetRenderTargets(1, &rtv, nullptr);
-
-		float color[] = { totalTime, 0.1f, 0.1f, 1.0f };
-		context->ClearRenderTargetView(rtv, color);
-
-		context->DrawIndexed(6, 0, 0);
-
-		context->OMSetRenderTargets(0, nullptr, nullptr);
-
-		swapChain->Present(1, /*DXGI_PRESENT_DO_NOT_WAIT*/ 0);
-
-		
+		GetInput();
+		Update();
+		Render();
 	}
 
 	std::cout << "Hello World!\n";
 
 }
+
+#pragma region GameLoopPattern
+
+void Game::GetInput()
+{
+	wInput->GetInput();
+}
+
+void Game::Render()
+{
+	context->ClearState();
+
+	context->RSSetState(rastState);
+
+	D3D11_VIEWPORT viewport = {};
+	viewport.Width = static_cast<float>(800);
+	viewport.Height = static_cast<float>(800);
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
+	viewport.MinDepth = 0;
+	viewport.MaxDepth = 1.0f;
+
+	context->RSSetViewports(1, &viewport);
+
+	context->IASetInputLayout(layout);
+	context->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	context->IASetIndexBuffer(ib, DXGI_FORMAT_R32_UINT, 0);
+	context->IASetVertexBuffers(0, 1, &vb, strides, offsets);
+	context->VSSetShader(vertexShader, nullptr, 0);
+	context->PSSetShader(pixelShader, nullptr, 0);
+
+
+
+
+	context->OMSetRenderTargets(1, &rtv, nullptr);
+
+	float color[] = { totalTime, 0.1f, 0.1f, 1.0f };
+	context->ClearRenderTargetView(rtv, color);
+
+	context->DrawIndexed(6, 0, 0);
+
+	context->OMSetRenderTargets(0, nullptr, nullptr);
+
+	swapChain->Present(1, /*DXGI_PRESENT_DO_NOT_WAIT*/ 0);
+}
+
+void Game::Update()
+{
+	auto	curTime = std::chrono::steady_clock::now();
+	float	deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(curTime - PrevTime).count() / 1000000.0f;
+	PrevTime = curTime;
+
+	totalTime += deltaTime;
+	frameCount++;
+
+	if (totalTime > 1.0f) {
+		float fps = frameCount / totalTime;
+
+		totalTime -= 1.0f;
+
+		WCHAR text[256];
+		swprintf_s(text, TEXT("FPS: %f"), fps);
+		SetWindowText(GetWindow32HWND(), text);
+
+		frameCount = 0;
+	}
+}
+
+#pragma endregion

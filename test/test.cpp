@@ -30,9 +30,9 @@ int main()
 
 	myGame.CompileFromFile(L"MyVeryFirstShader.hlsl");
 
-	myGame.Render();
+	myGame.PreRender();
 
-	myGame.Update();
+	myGame.StartGameLoop();
 
 }
 

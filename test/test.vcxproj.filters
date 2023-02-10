@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\Keyboard">
+      <UniqueIdentifier>{bee0da0a-1790-4f43-940b-8089c7c96804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Keyboard">
+      <UniqueIdentifier>{18bb8924-0ee9-4b18-b7ae-c371bc1ff792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Mouse">
+      <UniqueIdentifier>{5805740a-ccd3-4e7b-bfde-110a2ec93649}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Mouse">
+      <UniqueIdentifier>{8e3963af-c3e6-498b-a8bc-91f0056a1ce3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -27,6 +39,18 @@
     <ClCompile Include="WinInput.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="KeyboardEvent.cpp">
+      <Filter>Исходные файлы\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>Исходные файлы\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Исходные файлы\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseEvent.cpp">
+      <Filter>Исходные файлы\Mouse</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -37,6 +61,18 @@
     </ClInclude>
     <ClInclude Include="WinInput.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardEvent.h">
+      <Filter>Файлы заголовков\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Файлы заголовков\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>Файлы заголовков\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseEvent.h">
+      <Filter>Файлы заголовков\Mouse</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

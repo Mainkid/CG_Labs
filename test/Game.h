@@ -41,9 +41,9 @@ public:
 
 	void CompileFromFile(LPCWSTR fileName);
 
-	void Render();
+	void PreRender();
 
-	void Update();
+	void StartGameLoop();
 
 
 
@@ -53,9 +53,9 @@ public:
 	DXGI_SWAP_CHAIN_DESC swapDesc;
 
 	Microsoft::WRL::ComPtr<ID3D11Device> device;
-	ID3D11DeviceContext* context;
-	IDXGISwapChain* swapChain;
-
+	Microsoft::WRL::ComPtr<ID3D11DeviceContext> context;
+	Microsoft::WRL::ComPtr <IDXGISwapChain> swapChain;
+	ID3D11RenderTargetView* rtv;
 	
 	HRESULT res;
 	bool isExitRequested = false;
@@ -75,9 +75,14 @@ public:
 	ID3D11VertexShader* vertexShader;
 	ID3D11PixelShader* pixelShader;
 	std::chrono::time_point<std::chrono::steady_clock> PrevTime;
-	ID3D11RenderTargetView* rtv;
+	
 	float totalTime = 0;
 	unsigned int frameCount = 0;
 	CD3D11_RASTERIZER_DESC rastDesc = {};
+
+private:
+	void GetInput();
+	void Render();
+	void Update();
 };
 
