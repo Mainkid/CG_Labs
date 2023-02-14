@@ -141,20 +141,24 @@
   <ItemGroup>
     <ClCompile Include="DisplayWin32.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="KeyboardEvent.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MouseEvent.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="TriangleComponent.cpp" />
     <ClCompile Include="WinInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayWin32.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameComponent.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="KeyboardEvent.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MouseEvent.h" />
+    <ClInclude Include="TriangleComponent.h" />
     <ClInclude Include="WinInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,7 +1,6 @@
 ﻿  Game.cpp
-C:\Users\jdczy\source\repos\test\test\Game.cpp(171,73): warning C4267: =: преобразование из "size_t" в "UINT"; возможна потеря данных
-C:\Users\jdczy\source\repos\test\test\Game.cpp(188,59): warning C4267: =: преобразование из "size_t" в "UINT"; возможна потеря данных
-  test.cpp
-  WinInput.cpp
+  TriangleComponent.cpp
+C:\Users\jdczy\source\repos\test\test\TriangleComponent.cpp(97,73): warning C4267: =: преобразование из "size_t" в "UINT"; возможна потеря данных
+C:\Users\jdczy\source\repos\test\test\TriangleComponent.cpp(114,59): warning C4267: =: преобразование из "size_t" в "UINT"; возможна потеря данных
   Создание кода...
   test.vcxproj -> C:\Users\jdczy\source\repos\test\x64\Debug\test.exe

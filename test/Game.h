@@ -8,9 +8,11 @@
 #include <d3dcompiler.h>
 #include <directxmath.h>
 #include <chrono>
+#include <vector>
 
 #include "DisplayWin32.h"
 #include "WinInput.h"
+#include "TriangleComponent.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
@@ -41,7 +43,7 @@ public:
 
 	void CompileFromFile(LPCWSTR fileName);
 
-	void PreRender();
+	void InitializeDirectX();
 
 	void StartGameLoop();
 
@@ -59,30 +61,22 @@ public:
 	
 	HRESULT res;
 	bool isExitRequested = false;
-	//Переделать
-	ID3DBlob* vertexBC; //m
-	ID3DBlob* pixelBC;  //m
+
 	ID3D11Texture2D* backTex;
 	ID3D11RasterizerState* rastState;
-	ID3D11InputLayout* layout;
 	ID3D11Buffer* ib;
 	ID3D11Buffer* vb;
-	UINT strides[1] = { 32 }; //m
-	UINT offsets[1] = { 0 }; //m
 	
-	ID3DBlob* errorPixelCode;
-	ID3DBlob* errorVertexCode = nullptr;
-	ID3D11VertexShader* vertexShader;
-	ID3D11PixelShader* pixelShader;
+
 	std::chrono::time_point<std::chrono::steady_clock> PrevTime;
-	
 	float totalTime = 0;
 	unsigned int frameCount = 0;
-	CD3D11_RASTERIZER_DESC rastDesc = {};
+
 
 private:
 	void GetInput();
 	void Render();
 	void Update();
+	std::vector<TriangleComponent*> gameComponents;
 };
 

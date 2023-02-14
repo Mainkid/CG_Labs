@@ -25,6 +25,12 @@
     <Filter Include="Файлы заголовков\Mouse">
       <UniqueIdentifier>{8e3963af-c3e6-498b-a8bc-91f0056a1ce3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\RenderComponent">
+      <UniqueIdentifier>{2753acb9-f7e2-40a8-9b7a-65536aef3ac8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\RenderComponent">
+      <UniqueIdentifier>{140ed67f-bf49-4808-a747-a4f0d548a6c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -51,6 +57,12 @@
     <ClCompile Include="MouseEvent.cpp">
       <Filter>Исходные файлы\Mouse</Filter>
     </ClCompile>
+    <ClCompile Include="GameComponent.cpp">
+      <Filter>Исходные файлы\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleComponent.cpp">
+      <Filter>Исходные файлы\RenderComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -73,6 +85,12 @@
     </ClInclude>
     <ClInclude Include="MouseEvent.h">
       <Filter>Файлы заголовков\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponent.h">
+      <Filter>Файлы заголовков\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleComponent.h">
+      <Filter>Файлы заголовков\RenderComponent</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
