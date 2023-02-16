@@ -14,6 +14,7 @@
 #include "WinInput.h"
 #include "TriangleComponent.h"
 
+
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -47,6 +48,8 @@ public:
 
 	void StartGameLoop();
 
+	void AddGameComponent(GameComponent* gc);
+
 
 
 	DisplayWin32* window;
@@ -64,8 +67,6 @@ public:
 
 	ID3D11Texture2D* backTex;
 	ID3D11RasterizerState* rastState;
-	ID3D11Buffer* ib;
-	ID3D11Buffer* vb;
 	
 
 	std::chrono::time_point<std::chrono::steady_clock> PrevTime;
@@ -77,6 +78,6 @@ private:
 	void GetInput();
 	void Render();
 	void Update();
-	std::vector<TriangleComponent*> gameComponents;
+	std::vector<GameComponent*> gameComponents;
 };
 

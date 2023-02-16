@@ -63,6 +63,12 @@
     <ClCompile Include="TriangleComponent.cpp">
       <Filter>Исходные файлы\RenderComponent</Filter>
     </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="AnotherComponent.cpp">
+      <Filter>Исходные файлы\RenderComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -90,6 +96,12 @@
       <Filter>Файлы заголовков\RenderComponent</Filter>
     </ClInclude>
     <ClInclude Include="TriangleComponent.h">
+      <Filter>Файлы заголовков\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="AnotherComponent.h">
       <Filter>Файлы заголовков\RenderComponent</Filter>
     </ClInclude>
   </ItemGroup>

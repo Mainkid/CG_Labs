@@ -81,7 +81,7 @@ void TriangleComponent::Initialize()
 		&layout);
 
 	DirectX::XMFLOAT4 points[8] = {
-		DirectX::XMFLOAT4(0.2f, 0.5f, 0.5f, 1.0f),	DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f),
+		DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f),	DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f),
 		DirectX::XMFLOAT4(-0.5f, -0.5f, 0.5f, 1.0f),	DirectX::XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f),
 		DirectX::XMFLOAT4(0.5f, -0.5f, 0.5f, 1.0f),	DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f),
 		DirectX::XMFLOAT4(-0.5f, 0.5f, 0.5f, 1.0f),	DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f),
@@ -102,7 +102,7 @@ void TriangleComponent::Initialize()
 	vertexData.SysMemSlicePitch = 0;
 
 
-	res= game->device->CreateBuffer(&vertexBufDesc, &vertexData, &game->vb);
+	res= game->device->CreateBuffer(&vertexBufDesc, &vertexData, &vb);
 
 	int indeces[] = { 0,1,2, 1,0,3 };
 	D3D11_BUFFER_DESC indexBufDesc = {};
@@ -119,7 +119,7 @@ void TriangleComponent::Initialize()
 	indexData.SysMemSlicePitch = 0;
 
 
-	res=game->device->CreateBuffer(&indexBufDesc, &indexData, &game->ib);
+	res=game->device->CreateBuffer(&indexBufDesc, &indexData, &ib);
 
 
 	rastDesc.CullMode = D3D11_CULL_NONE;
@@ -139,12 +139,7 @@ void TriangleComponent::Initialize()
 
 	game->context->RSSetViewports(1, &viewport);
 
-	game->context->IASetInputLayout(layout);
-	game->context->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	game->context->IASetIndexBuffer(game->ib, DXGI_FORMAT_R32_UINT, 0);
-	game->context->IASetVertexBuffers(0, 1, &game->vb, strides, offsets);
-	game->context->VSSetShader(this->vertexShader, nullptr, 0);
-	game->context->PSSetShader(this->pixelShader, nullptr, 0);
+	
 }
 
 void TriangleComponent::Render()
@@ -154,17 +149,18 @@ void TriangleComponent::Render()
 
 	//game->context->RSSetState(rastState);
 
-	
+	//float bgColor[] = { 0.1f, 0.1f, 0.1f, 1.0f };
+	//game->context->ClearRenderTargetView(game->rtv, bgColor);
 
-	
-
-
+	game->context->IASetInputLayout(layout);
+	game->context->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	game->context->IASetIndexBuffer(ib, DXGI_FORMAT_R32_UINT, 0);
+	game->context->IASetVertexBuffers(0, 1, &vb, strides, offsets);
+	game->context->VSSetShader(this->vertexShader, nullptr, 0);
+	game->context->PSSetShader(this->pixelShader, nullptr, 0);
 
 
 	game->context->OMSetRenderTargets(1, &game->rtv, nullptr);
-
-	float bgColor[] = { 0.1f, 0.1f, 0.1f, 1.0f };
-	game->context->ClearRenderTargetView(game->rtv, bgColor);
 
 	game->context->DrawIndexed(6, 0, 0);
 
@@ -176,5 +172,11 @@ void TriangleComponent::Render()
 
 void TriangleComponent::Update(float deltaSec)
 {
+
+}
+
+void TriangleComponent::InitializeShaders()
+{
+	
 
 }

@@ -1,7 +1,7 @@
 ﻿#include "DisplayWin32.h"
 #include "Game.h"
 
-
+#include "AnotherComponent.h"
 
 
 
@@ -13,22 +13,27 @@ int main()
 	auto screenHeight = 800;
 
 #pragma region Window init
-	Game myGame;
-	myGame.CreateWindow32(applicationName, hInstance,screenWidth, screenHeight);
+	Game* myGame = new Game();
+	myGame->CreateWindow32(applicationName, hInstance,screenWidth, screenHeight);
 #pragma endregion Window init
 
 
 	D3D_FEATURE_LEVEL featureLevel[] = { D3D_FEATURE_LEVEL_11_1 };
 
-	myGame.SetSwapDesc();
+	myGame->SetSwapDesc();
 
-	myGame.CreateDeviceAndSwapChain();
+	myGame->CreateDeviceAndSwapChain();
+	GameComponent* tc = new TriangleComponent(myGame); //!!! УБРАТЬ
+	GameComponent* tq = new AnotherComponent(myGame); //!!! УБРАТЬ
+	
+	myGame->AddGameComponent(tq);
+	myGame->AddGameComponent(tc);
+	
+	
 
-	myGame.CompileFromFile(L"MyVeryFirstShader.hlsl");
+	myGame->InitializeDirectX();
 
-	myGame.InitializeDirectX();
-
-	myGame.StartGameLoop();
+	myGame->StartGameLoop();
 
 }
 

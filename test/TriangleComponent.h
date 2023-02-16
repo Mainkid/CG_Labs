@@ -9,6 +9,7 @@
 #include <directxmath.h>
 #include "GameComponent.h"
 
+
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -22,6 +23,7 @@ public:
 	void Initialize() override;
 	void Render() override;
 	void Update(float deltaSec) override;
+	void InitializeShaders() override;
 
 private:
 	ID3D11InputLayout* layout;
@@ -35,6 +37,8 @@ private:
 	ID3D11RasterizerState* rastState;
 	ID3DBlob* errorPixelCode = nullptr;
 	ID3DBlob* errorVertexCode = nullptr;
+	ID3D11Buffer* ib;
+	ID3D11Buffer* vb;
 	CD3D11_RASTERIZER_DESC rastDesc = {};
 };
 

@@ -40,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnotherComponent.cpp" />
     <ClCompile Include="DisplayWin32.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameComponent.cpp" />
@@ -146,11 +147,13 @@
     <ClCompile Include="KeyboardEvent.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MouseEvent.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="TriangleComponent.cpp" />
     <ClCompile Include="WinInput.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnotherComponent.h" />
     <ClInclude Include="DisplayWin32.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameComponent.h" />
@@ -158,6 +161,7 @@
     <ClInclude Include="KeyboardEvent.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MouseEvent.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="TriangleComponent.h" />
     <ClInclude Include="WinInput.h" />
   </ItemGroup>

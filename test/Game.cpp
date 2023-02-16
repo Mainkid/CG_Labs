@@ -92,9 +92,10 @@ void Game::CompileFromFile(LPCWSTR fileName)
 
 void Game::InitializeDirectX()
 {
-	TriangleComponent* tc = new TriangleComponent(this); //!!! ÓÁÐÀÒÜ
-	gameComponents.push_back(tc); //!!! ÓÁÐÀÒÜ
-	tc->Initialize(); //!!! ÓÁÐÀÒÜ
+	
+
+	for (auto i : gameComponents)
+		i->Initialize();
 }
 
 void Game::StartGameLoop()
@@ -112,6 +113,11 @@ void Game::StartGameLoop()
 
 }
 
+void Game::AddGameComponent(GameComponent* gc)
+{
+	gameComponents.push_back(gc);
+}
+
 #pragma region GameLoopPattern
 
 void Game::GetInput()
@@ -121,6 +127,9 @@ void Game::GetInput()
 
 void Game::Render()
 {
+	float bgColor[] = { 0.1f, 0.1f, 0.1f, 1.0f };
+	context->ClearRenderTargetView(rtv, bgColor);
+
 	for (auto i : gameComponents)
 	{
 		i->Render();
@@ -148,6 +157,11 @@ void Game::Update()
 		SetWindowText(GetWindow32HWND(), text);
 
 		frameCount = 0;
+	}
+
+	for (auto vec : gameComponents)
+	{
+		vec->Update(deltaTime);
 	}
 }
 
