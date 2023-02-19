@@ -159,14 +159,17 @@ void Ball::Initialize()
 	boundingSphere.Center = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 	boundingSphere.Radius = 0.05f;
 
-	topBorder.Center = DirectX::XMFLOAT3(0.0f, 1.1f, 0.0f);
-	topBorder.Extents = DirectX::XMFLOAT3(1.0f, 0.05f, 0.1f);
+	topBorder.Center = DirectX::XMFLOAT3(0.0f, 1.15f, 0.0f);
+	topBorder.Extents = DirectX::XMFLOAT3(0.9f, 0.1f, 0.1f);
 
 	botBorder.Center = DirectX::XMFLOAT3(0.0f, -1.1f, 0.0f);
-	botBorder.Extents = DirectX::XMFLOAT3(1.0f, 0.05f, 0.1f);
+	botBorder.Extents = DirectX::XMFLOAT3(0.9f, 0.05f, 0.1f);
 
 	direction.x = -1;
 	direction.y = 0;
+
+	prevOffset.x = 0.001;
+	prevOffset.y = 0.001;
 }
 
 void Ball::Render()
@@ -206,51 +209,90 @@ void Ball::Update(float deltaSec)
 	DirectX::BoundingBox player1BB= racket->GetBox();
 	DirectX::BoundingBox aiBB = ai->GetBox();
 
+	prevOffset.x = boundingSphere.Center.x;
+	prevOffset.y = boundingSphere.Center.y;
+
 	boundingSphere.Center.x += direction.x * speed * deltaSec;
 	boundingSphere.Center.y += direction.y * speed * deltaSec;
 
-	prevOffset.x = data.xOffset;
-	prevOffset.y = data.yOffset;
-
 	data.xOffset += direction.x * speed * deltaSec;
 	data.yOffset += direction.y * speed * deltaSec;
+
+	
 	
 
-	if (data.xOffset <= -1)
+	if (boundingSphere.Center.x <= -1 && prevOffset.x>-1)
 	{
 		float y = (prevOffset.y - data.yOffset) * (-1 - data.xOffset) / (prevOffset.x - data.xOffset) + data.yOffset;
 		if (y < player1BB.Center.y + 0.2f && y > player1BB.Center.y - 0.2f)
 		{
+
+			
+			DirectX::SimpleMath::Vector2 magnitude(boundingSphere.Center.x, boundingSphere.Center.y);
+			magnitude -= DirectX::SimpleMath::Vector2(-1, y);
+			float length=magnitude.Length();
+
+
 			std::cout << "GG";
-			data.xOffset = prevOffset.x;
-			data.yOffset = prevOffset.y;
-			boundingSphere.Center.x = prevOffset.x;
-			boundingSphere.Center.y = prevOffset.y;
+			
+
+			data.xOffset -= direction.x * speed * deltaSec;
+			data.yOffset -= direction.y * speed * deltaSec;
 
 			DirectX::SimpleMath::Vector2 a(0.2f, 0.f);
 			DirectX::SimpleMath::Vector2 bv(0, boundingSphere.Center.y - player1BB.Center.y);
 			DirectX::SimpleMath::Vector2 c = (a + bv);
 			c.Normalize();
 			direction = c;
+
+			
+			prevOffset.x = boundingSphere.Center.x;
+			prevOffset.y = boundingSphere.Center.y;
+
+			boundingSphere.Center.x = direction.x*length;
+			boundingSphere.Center.y = direction.y * length;
+
+
+			data.xOffset = boundingSphere.Center.x;
+			data.yOffset = boundingSphere.Center.y;
+			
 			speed *= 1.1f;
 		}
 	}
-	else if (data.xOffset >= 1)
+	else if (boundingSphere.Center.x >= 1 && prevOffset.x<-1)
 	{
 		float y = (prevOffset.y - data.yOffset) * (1 - data.xOffset) / (prevOffset.x - data.xOffset) + data.yOffset;
 		if (y < aiBB.Center.y + 0.2f && y > aiBB.Center.y - 0.2f)
 		{
+
+			DirectX::SimpleMath::Vector2 magnitude(boundingSphere.Center.x, boundingSphere.Center.y);
+			magnitude -= DirectX::SimpleMath::Vector2(1, y);
+			float length = magnitude.Length();
+
+
 			std::cout << "GG";
-			data.xOffset = prevOffset.x;
-			data.yOffset = prevOffset.y;
-			boundingSphere.Center.x = prevOffset.x;
-			boundingSphere.Center.y = prevOffset.y;
+
+			data.xOffset -= direction.x * speed * deltaSec;
+			data.yOffset -= direction.y * speed * deltaSec;
+			
 
 			DirectX::SimpleMath::Vector2 a(-0.2f, 0.f);
 			DirectX::SimpleMath::Vector2 bv(0, boundingSphere.Center.y - aiBB.Center.y);
 			DirectX::SimpleMath::Vector2 c = (a + bv);
 			c.Normalize();
 			direction = c;
+
+			prevOffset.x = boundingSphere.Center.x;
+			prevOffset.y = boundingSphere.Center.y;
+
+			boundingSphere.Center.x = direction.x * length;
+			boundingSphere.Center.y = direction.y * length;
+
+
+			data.xOffset = boundingSphere.Center.x;
+			data.yOffset = boundingSphere.Center.y;
+
+
 			speed *= 1.1f;
 		}
 
@@ -295,6 +337,10 @@ void Ball::Update(float deltaSec)
 
 
 		}
+		else
+		{
+			
+		}
 	
 	}
 	
@@ -317,6 +363,8 @@ void Ball::Update(float deltaSec)
 		boundingSphere.Center.x = 0;
 		boundingSphere.Center.y = 0;
 		boundingSphere.Center.z = 0;
+		prevOffset.x = 0.001f;
+		prevOffset.y = 0.001f;
 		speed = 1.0f;
 	}
 
