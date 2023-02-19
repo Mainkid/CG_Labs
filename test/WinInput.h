@@ -10,6 +10,7 @@
 #include <chrono>
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "InputDevice.h"
 
 class Game;
 
@@ -33,11 +34,14 @@ public:
 
 	void GetInput();
 
+	InputDevice* GetInputDevice();
+
 private:
 	POINT cursorPos;
 	POINT mouseOffset;
 	Game* game;
-	Keyboard* keyboard;
-	Mouse* mouse;
+	//Keyboard* keyboard;
+	//Mouse* mouse;
+	InputDevice* inputDevice;
 };
 

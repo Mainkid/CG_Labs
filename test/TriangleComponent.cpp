@@ -1,9 +1,11 @@
 #include "TriangleComponent.h"
 #include "Game.h"
 
+
 TriangleComponent::TriangleComponent(Game* game)
 {
 	this->game = game;
+
 }
 
 void TriangleComponent::Initialize()
@@ -12,7 +14,7 @@ void TriangleComponent::Initialize()
 
 	D3D_SHADER_MACRO Shader_Macros[] = { "TEST", "1", "TCOLOR", "float4(0.0f, 1.0f, 0.0f, 1.0f)", nullptr, nullptr };
 
-	HRESULT res = D3DCompileFromFile(L"MyVeryFirstShader.hlsl",
+	HRESULT res = D3DCompileFromFile(L"./Shaders/Racket.hlsl",
 		nullptr /*macros*/,
 		nullptr /*include*/,
 		"VSMain",
@@ -32,7 +34,7 @@ void TriangleComponent::Initialize()
 		// If there was  nothing in the error message then it simply could not find the shader file itself.
 		else
 		{
-			MessageBox(game->window->GetHWND(), L"MyVeryFirstShader.hlsl", L"Missing Shader File", MB_OK);
+			MessageBox(game->window->GetHWND(), L"./Shaders/Racket.hlsl", L"Missing Shader File", MB_OK);
 		}
 
 	}
@@ -40,7 +42,7 @@ void TriangleComponent::Initialize()
 
 	
 
-	res = D3DCompileFromFile(L"MyVeryFirstShader.hlsl", Shader_Macros /*macros*/, nullptr /*include*/, "PSMain", "ps_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &pixelBC, &errorPixelCode);
+	res = D3DCompileFromFile(L"./Shaders/Racket.hlsl", Shader_Macros /*macros*/, nullptr /*include*/, "PSMain", "ps_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &pixelBC, &errorPixelCode);
 
 
 	res = game->device->CreateVertexShader(
@@ -81,10 +83,10 @@ void TriangleComponent::Initialize()
 		&layout);
 
 	DirectX::XMFLOAT4 points[8] = {
-		DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f),	DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f),
-		DirectX::XMFLOAT4(-0.5f, -0.5f, 0.5f, 1.0f),	DirectX::XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f),
-		DirectX::XMFLOAT4(0.5f, -0.5f, 0.5f, 1.0f),	DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f),
-		DirectX::XMFLOAT4(-0.5f, 0.5f, 0.5f, 1.0f),	DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f),
+		DirectX::XMFLOAT4(-1.0f, 0.2f, 0.5f, 1.0f),	DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f),
+		DirectX::XMFLOAT4(-1.0f, -0.2f, 0.5f, 1.0f),	DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f),
+		DirectX::XMFLOAT4(-0.95f, 0.2f, 0.5f, 1.0f),	DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f),
+		DirectX::XMFLOAT4(-0.95f, -0.2f, 0.5f, 1.0f),	DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f),
 	};
 
 
@@ -103,8 +105,8 @@ void TriangleComponent::Initialize()
 
 
 	res= game->device->CreateBuffer(&vertexBufDesc, &vertexData, &vb);
-
-	int indeces[] = { 0,1,2, 1,0,3 };
+	
+	int indeces[] = { 0,1,2, 1,2,3 };
 	D3D11_BUFFER_DESC indexBufDesc = {};
 	indexBufDesc.Usage = D3D11_USAGE_DEFAULT;
 	indexBufDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
@@ -120,6 +122,16 @@ void TriangleComponent::Initialize()
 
 
 	res=game->device->CreateBuffer(&indexBufDesc, &indexData, &ib);
+
+	D3D11_BUFFER_DESC constantBufDesc = {};
+	constantBufDesc.Usage = D3D11_USAGE_DYNAMIC;
+	constantBufDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	constantBufDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	constantBufDesc.MiscFlags = 0;
+	constantBufDesc.ByteWidth = sizeof(CB_VS_vertexshader) + (16 - sizeof(CB_VS_vertexshader)) % 16;
+	constantBufDesc.StructureByteStride = 0;
+	
+	res = game->device->CreateBuffer(&constantBufDesc, 0, &constantBuffer);
 
 
 	rastDesc.CullMode = D3D11_CULL_NONE;
@@ -139,19 +151,20 @@ void TriangleComponent::Initialize()
 
 	game->context->RSSetViewports(1, &viewport);
 
-	
+	boundingBox.Center = DirectX::XMFLOAT3(-0.975f, 0.0f, 0.0f);
+	boundingBox.Extents = DirectX::XMFLOAT3(0.025f, 0.2f, 0.1f);
 }
 
 void TriangleComponent::Render()
 {
+	
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	HRESULT res= game->context->Map(constantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	CopyMemory(mappedResource.pData, &data, sizeof(CB_VS_vertexshader));
+	game->context->Unmap(constantBuffer, 0);
+	game->context->VSSetConstantBuffers(0, 1, &constantBuffer);
 
-	//game->context->ClearState();
-
-	//game->context->RSSetState(rastState);
-
-	//float bgColor[] = { 0.1f, 0.1f, 0.1f, 1.0f };
-	//game->context->ClearRenderTargetView(game->rtv, bgColor);
-
+	
 	game->context->IASetInputLayout(layout);
 	game->context->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	game->context->IASetIndexBuffer(ib, DXGI_FORMAT_R32_UINT, 0);
@@ -172,11 +185,32 @@ void TriangleComponent::Render()
 
 void TriangleComponent::Update(float deltaSec)
 {
+	float speed = 1.5f;
 
+	if (game->wInput->GetInputDevice()->keys->count(Keys::Up) && data.yOffset < 0.8)
+	{
+		data.yOffset += speed * deltaSec;
+		boundingBox.Center.y += speed * deltaSec;
+	}
+	if (game->wInput->GetInputDevice()->keys->count(Keys::Down) && data.yOffset > -0.8)
+	{
+		data.yOffset -= speed * deltaSec;
+		boundingBox.Center.y -= speed * deltaSec;
+	}
+
+
+	
+	//data.xOffset += game->wInput->GetInputDevice()->MouseOffset.x * deltaSec;
+	
 }
 
 void TriangleComponent::InitializeShaders()
 {
 	
 
+}
+
+DirectX::BoundingBox TriangleComponent::GetBox()
+{
+	return boundingBox;
 }

@@ -40,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -140,28 +140,41 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnotherComponent.cpp" />
+    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="DisplayWin32.cpp" />
+    <ClCompile Include="DotedLine.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameComponent.cpp" />
+    <ClCompile Include="InputDevice.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="KeyboardEvent.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MouseEvent.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SimpleAI.cpp" />
+    <ClCompile Include="SimpleMath.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="TriangleComponent.cpp" />
     <ClCompile Include="WinInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnotherComponent.h" />
+    <ClInclude Include="Ball.h" />
+    <ClInclude Include="ConstantBufferTypes.h" />
+    <ClInclude Include="Delegates.h" />
     <ClInclude Include="DisplayWin32.h" />
+    <ClInclude Include="DotedLine.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameComponent.h" />
+    <ClInclude Include="InputDevice.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="KeyboardEvent.h" />
+    <ClInclude Include="Keys.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MouseEvent.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SimpleAI.h" />
+    <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="TriangleComponent.h" />
     <ClInclude Include="WinInput.h" />
   </ItemGroup>

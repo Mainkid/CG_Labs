@@ -31,6 +31,18 @@
     <Filter Include="Файлы заголовков\RenderComponent">
       <UniqueIdentifier>{140ed67f-bf49-4808-a747-a4f0d548a6c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Input">
+      <UniqueIdentifier>{c6755273-919b-4895-8a20-d3f262f631ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Input">
+      <UniqueIdentifier>{bbefc19d-0217-4622-981b-ac8ba9fa927c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\DirectXSDK">
+      <UniqueIdentifier>{17274fcf-3bf3-40c1-a639-2538ebd0fd73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\DirectXSDK">
+      <UniqueIdentifier>{1e24eea5-c354-4df1-8d97-d54170edb360}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -69,6 +81,21 @@
     <ClCompile Include="AnotherComponent.cpp">
       <Filter>Исходные файлы\RenderComponent</Filter>
     </ClCompile>
+    <ClCompile Include="SimpleMath.cpp">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="InputDevice.cpp">
+      <Filter>Исходные файлы\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="DotedLine.cpp">
+      <Filter>Исходные файлы\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
+      <Filter>Исходные файлы\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleAI.cpp">
+      <Filter>Исходные файлы\RenderComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -102,6 +129,30 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="AnotherComponent.h">
+      <Filter>Файлы заголовков\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBufferTypes.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleMath.h">
+      <Filter>Файлы заголовков\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="Delegates.h">
+      <Filter>Файлы заголовков\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="InputDevice.h">
+      <Filter>Файлы заголовков\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Keys.h">
+      <Filter>Файлы заголовков\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="DotedLine.h">
+      <Filter>Файлы заголовков\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h">
+      <Filter>Файлы заголовков\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleAI.h">
       <Filter>Файлы заголовков\RenderComponent</Filter>
     </ClInclude>
   </ItemGroup>

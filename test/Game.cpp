@@ -1,8 +1,9 @@
 #include "Game.h"
 
 
-Game::Game()
+Game::Game(LPCWSTR applicationName, HINSTANCE hInstance, int width, int height)
 {
+	window = new DisplayWin32(this, applicationName, hInstance, width, height);
 	wInput = new WinInput(this);
 }
 
@@ -16,11 +17,11 @@ Game::~Game()
 	}
 }
 
-HWND Game::CreateWindow32(LPCWSTR applicationName, HINSTANCE hInstance, int width, int height)
-{
-	window = new DisplayWin32(this,applicationName, hInstance, width, height);
-	return window->GetHWND();
-}
+//HWND Game::CreateWindow32(LPCWSTR applicationName, HINSTANCE hInstance, int width, int height)
+//{
+//	
+//	return window->GetHWND();
+//}
 
 HWND Game::GetWindow32HWND()
 {
@@ -92,7 +93,9 @@ void Game::CompileFromFile(LPCWSTR fileName)
 
 void Game::InitializeDirectX()
 {
-	
+	SetSwapDesc();
+
+	CreateDeviceAndSwapChain();
 
 	for (auto i : gameComponents)
 		i->Initialize();
@@ -127,7 +130,7 @@ void Game::GetInput()
 
 void Game::Render()
 {
-	float bgColor[] = { 0.1f, 0.1f, 0.1f, 1.0f };
+	float bgColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	context->ClearRenderTargetView(rtv, bgColor);
 
 	for (auto i : gameComponents)

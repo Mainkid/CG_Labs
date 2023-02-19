@@ -6,14 +6,19 @@
 #include <d3d.h>
 #include <d3d11.h>
 #include <d3dcompiler.h>
-#include <directxmath.h>
 #include "GameComponent.h"
+#include "ConstantBufferTypes.h"
+#include "SimpleMath.h"
+#include <DirectXMath.h>
+#include <DirectXCollision.h>
+
 
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "dxguid.lib")
+
 
 
 class TriangleComponent : public GameComponent
@@ -24,6 +29,8 @@ public:
 	void Render() override;
 	void Update(float deltaSec) override;
 	void InitializeShaders() override;
+	DirectX::BoundingBox GetBox();
+
 
 private:
 	ID3D11InputLayout* layout;
@@ -39,6 +46,12 @@ private:
 	ID3DBlob* errorVertexCode = nullptr;
 	ID3D11Buffer* ib;
 	ID3D11Buffer* vb;
+	ID3D11Buffer* constantBuffer;
 	CD3D11_RASTERIZER_DESC rastDesc = {};
+
+
+	CB_VS_vertexshader data;
+	DirectX::BoundingBox boundingBox;
+
 };
 

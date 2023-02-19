@@ -26,11 +26,11 @@ class Game
 {
 public:
 
-	Game();
+	Game(LPCWSTR applicationName, HINSTANCE hInstance, int width, int height);
 
 	~Game();
 	
-	HWND CreateWindow32(LPCWSTR applicationName, HINSTANCE hInstance, int width, int height);
+	/*HWND CreateWindow32(LPCWSTR applicationName, HINSTANCE hInstance, int width, int height);*/
 
 	HWND GetWindow32HWND();
 
