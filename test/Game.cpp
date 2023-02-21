@@ -5,6 +5,8 @@ Game::Game(LPCWSTR applicationName, HINSTANCE hInstance, int width, int height)
 {
 	window = new DisplayWin32(this, applicationName, hInstance, width, height);
 	wInput = new WinInput(this);
+
+	
 }
 
 Game::~Game()
@@ -120,6 +122,7 @@ void Game::AddGameComponent(GameComponent* gc)
 {
 	gameComponents.push_back(gc);
 }
+
 
 #pragma region GameLoopPattern
 

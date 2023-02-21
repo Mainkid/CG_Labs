@@ -256,7 +256,7 @@ void Ball::Update(float deltaSec)
 			data.xOffset = boundingSphere.Center.x;
 			data.yOffset = boundingSphere.Center.y;
 			
-			speed *= 1.1f;
+			speed *= 1.05f;
 		}
 	}
 	else if (boundingSphere.Center.x >= 1 && prevOffset.x<-1)
@@ -353,8 +353,13 @@ void Ball::Update(float deltaSec)
 	// Забит гол
 	if (abs( data.xOffset) > 2 || abs(data.yOffset) > 2)
 	{
-		std::cout << prevOffset.x << std::endl;
-		std::cout << data.xOffset << std::endl;
+		if (data.xOffset > 2)
+			p1++;
+		else
+			p2++;
+		
+		std::cout << p1<<" : "<<p2 << std::endl;
+		
 		
 		data.xOffset = 0;
 		data.yOffset = 0;
@@ -366,6 +371,11 @@ void Ball::Update(float deltaSec)
 		prevOffset.x = 0.001f;
 		prevOffset.y = 0.001f;
 		speed = 1.0f;
+
+		player1BB.Center.y = 0;
+		racket->data.yOffset = 0;
+
+		
 	}
 
 	

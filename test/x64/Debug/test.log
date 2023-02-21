@@ -1,6 +1,1 @@
-﻿  Ball.cpp
-C:\Users\jdczy\source\repos\test\test\Ball.cpp(104,73): warning C4267: =: преобразование из "size_t" в "UINT"; возможна потеря данных
-C:\Users\jdczy\source\repos\test\test\Ball.cpp(121,59): warning C4267: =: преобразование из "size_t" в "UINT"; возможна потеря данных
-C:\Users\jdczy\source\repos\test\test\Ball.cpp(171,22): warning C4305: =: усечение из "double" в "float"
-C:\Users\jdczy\source\repos\test\test\Ball.cpp(172,22): warning C4305: =: усечение из "double" в "float"
-  test.vcxproj -> C:\Users\jdczy\source\repos\test\x64\Debug\test.exe
+﻿  test.vcxproj -> C:\Users\jdczy\OneDrive\Рабочий стол\CG_Labs\x64\Debug\test.exe

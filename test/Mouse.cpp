@@ -81,8 +81,8 @@ void Mouse::OnMouseMove(int x, int y)
 	this->prevY = this->y;
 	this->x = x;
 	this->y = y;
-	this->eventBuffer.push(MouseEvent(MouseEvent::EventType::Move, x, y));
-	OnMouseMoveRaw(x,y);
+	//this->eventBuffer.push(MouseEvent(MouseEvent::EventType::Move, x, y));
+	//OnMouseMoveRaw(x,y);
 
 }
 

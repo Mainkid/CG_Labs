@@ -6,14 +6,14 @@ WinInput::WinInput(Game* _game)
 {
 	game = _game;
 	//keyboard = new Keyboard();
-	//mouse = new Mouse();
+	mouse = new Mouse();
 	inputDevice = new InputDevice(_game);
 }
 
 WinInput::~WinInput()
 {
 	//delete keyboard;
-	//delete mouse;
+	delete mouse;
 	delete inputDevice;
 }
 
@@ -61,13 +61,13 @@ bool WinInput::ProcessMessages()
 
    	switch (msg.message)
 	{
-//	case WM_MOUSEMOVE:
-//	{
-//		int x = LOWORD(msg.lParam);
-//		int y = HIWORD(msg.lParam);
-//		mouse->OnMouseMove(x, y);
-//		break;
-//	}
+	case WM_MOUSEMOVE:
+	{
+		int x = LOWORD(msg.lParam);
+		int y = HIWORD(msg.lParam);
+		mouse->OnMouseMove(x, y);
+		break;
+	}
 //	case WM_LBUTTONDOWN:
 //	{
 //		int x = LOWORD(msg.lParam);
@@ -206,7 +206,7 @@ bool WinInput::ProcessMessages()
 		}
 
 		delete[] lpb;
-		//return DefWindowProc(hwnd, umessage, wparam, lparam);
+		//return DefWindowProc(msg.hwnd, msg.message, msg.wParam, msg.lParam);
 	}
 
 	}

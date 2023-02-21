@@ -1,6 +1,7 @@
 
-#include "InputDevice.h"
+
 #include <iostream>
+#include "InputDevice.h"
 #include "Game.h"
 
 
@@ -85,6 +86,7 @@ void InputDevice::OnMouseMove(RawMouseEventArgs args)
 		MouseWheelDelta);*/
 	
 	MouseMove.Broadcast(moveArgs);
+	
 }
 
 void InputDevice::AddPressedKey(Keys key)

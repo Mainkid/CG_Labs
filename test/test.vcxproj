@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\CG_Labs\test\Delegates.cpp" />
     <ClCompile Include="AnotherComponent.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="DisplayWin32.cpp" />

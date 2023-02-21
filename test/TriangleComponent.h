@@ -6,9 +6,12 @@
 #include <d3d.h>
 #include <d3d11.h>
 #include <d3dcompiler.h>
+#include "InputDevice.h"
 #include "GameComponent.h"
+
 #include "ConstantBufferTypes.h"
 #include "SimpleMath.h"
+
 #include <DirectXMath.h>
 #include <DirectXCollision.h>
 
@@ -29,8 +32,9 @@ public:
 	void Render() override;
 	void Update(float deltaSec) override;
 	void InitializeShaders() override;
+	void ChangeMousePos(const InputDevice::MouseMoveEventArgs&);
 	DirectX::BoundingBox GetBox();
-
+	CB_VS_vertexshader data;
 
 private:
 	ID3D11InputLayout* layout;
@@ -50,7 +54,10 @@ private:
 	CD3D11_RASTERIZER_DESC rastDesc = {};
 
 
-	CB_VS_vertexshader data;
+	float offX;
+	float offY;
+
+	
 	DirectX::BoundingBox boundingBox;
 
 };

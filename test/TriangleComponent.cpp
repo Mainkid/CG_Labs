@@ -8,6 +8,13 @@ TriangleComponent::TriangleComponent(Game* game)
 
 }
 
+void TriangleComponent::ChangeMousePos(const InputDevice::MouseMoveEventArgs& MouseMove)
+{
+	offX = MouseMove.Offset.x;
+	offY = MouseMove.Offset.y;
+
+}
+
 void TriangleComponent::Initialize()
 {
 	vertexBC = nullptr;
@@ -153,6 +160,10 @@ void TriangleComponent::Initialize()
 
 	boundingBox.Center = DirectX::XMFLOAT3(-0.975f, 0.0f, 0.0f);
 	boundingBox.Extents = DirectX::XMFLOAT3(0.025f, 0.2f, 0.1f);
+
+	game->wInput->GetInputDevice()->MouseMove.AddRaw(this,&TriangleComponent::ChangeMousePos);
+
+
 }
 
 void TriangleComponent::Render()
@@ -183,24 +194,26 @@ void TriangleComponent::Render()
 
 }
 
+
+
 void TriangleComponent::Update(float deltaSec)
 {
-	float speed = 1.5f;
-
-	if (game->wInput->GetInputDevice()->keys->count(Keys::Up) && data.yOffset < 0.8)
-	{
-		data.yOffset += speed * deltaSec;
-		boundingBox.Center.y += speed * deltaSec;
-	}
-	if (game->wInput->GetInputDevice()->keys->count(Keys::Down) && data.yOffset > -0.8)
-	{
-		data.yOffset -= speed * deltaSec;
-		boundingBox.Center.y -= speed * deltaSec;
-	}
-
+	float speed = 0.5f;
 
 	
-	//data.xOffset += game->wInput->GetInputDevice()->MouseOffset.x * deltaSec;
+	
+	if (data.yOffset <= 0.8 && data.yOffset >= -0.8)
+	{
+		data.yOffset -= game->wInput->mouseOffset.y*deltaSec*speed;
+
+		data.yOffset = (std::max)(-0.79f, (std::min)(data.yOffset, 0.79f));
+		boundingBox.Center.y = data.yOffset;
+
+	}
+
+
+
+
 	
 }
 
@@ -209,6 +222,8 @@ void TriangleComponent::InitializeShaders()
 	
 
 }
+
+
 
 DirectX::BoundingBox TriangleComponent::GetBox()
 {

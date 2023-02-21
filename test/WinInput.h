@@ -36,12 +36,14 @@ public:
 
 	InputDevice* GetInputDevice();
 
+
+	POINT mouseOffset;
 private:
 	POINT cursorPos;
-	POINT mouseOffset;
+	
 	Game* game;
 	//Keyboard* keyboard;
-	//Mouse* mouse;
+	Mouse* mouse;
 	InputDevice* inputDevice;
 };
 

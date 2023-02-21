@@ -61,7 +61,7 @@ private:
 	DirectX::SimpleMath::Vector2 prevOffset;
 	TriangleComponent* racket;
 	SimpleAI* ai;
-	float speed = 4.0f;
+	float speed = 1.0f;
 	int p1 = 0;
 	int p2 = 0;
 

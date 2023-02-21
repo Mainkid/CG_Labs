@@ -96,6 +96,9 @@
     <ClCompile Include="SimpleAI.cpp">
       <Filter>Исходные файлы\RenderComponent</Filter>
     </ClCompile>
+    <ClCompile Include="..\CG_Labs\test\Delegates.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">

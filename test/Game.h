@@ -52,6 +52,7 @@ public:
 
 
 
+
 	DisplayWin32* window;
 	WinInput* wInput;
 
