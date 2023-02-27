@@ -1,1 +1,10 @@
-﻿  test.vcxproj -> C:\Users\jdczy\OneDrive\Рабочий стол\CG_Labs\x64\Debug\test.exe
+﻿  CameraController.cpp
+  DisplayWin32.cpp
+  Game.cpp
+C:\Users\jdczy\source\repos\test\test\Game.cpp(80,54): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  WinInput.cpp
+  Planet.cpp
+  Shader.cpp
+  test.cpp
+  Создание кода...
+  test.vcxproj -> C:\Users\jdczy\source\repos\test\x64\Debug\test.exe

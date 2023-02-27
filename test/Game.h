@@ -11,8 +11,10 @@
 #include <vector>
 
 #include "DisplayWin32.h"
-#include "WinInput.h"
-#include "TriangleComponent.h"
+#include "Input/WinInput.h"
+#include "RenderComponents/Planet.h"
+#include "Camera/Camera.h"
+#include "Camera/CameraController.h"
 
 
 #pragma comment(lib, "d3d11.lib")
@@ -22,63 +24,64 @@
 
 
 
+
 class Game
 {
 public:
 
+
 	Game(LPCWSTR applicationName, HINSTANCE hInstance, int width, int height);
 
 	~Game();
-	
-	/*HWND CreateWindow32(LPCWSTR applicationName, HINSTANCE hInstance, int width, int height);*/
 
 	HWND GetWindow32HWND();
 
-	//Сделать добавление фичер левела
-	void SetFeatureLevel();
-
-	//Не все параметры вынесены
-	void SetSwapDesc(int buffCount = 2, int RefreshRateNum = 60, int RefreshRateDenominator = 1, bool isWindowed = true);
-
 	void CreateDeviceAndSwapChain();
-
-	void CompileFromFile(LPCWSTR fileName);
 
 	void InitializeDirectX();
 
 	void StartGameLoop();
 
-	void AddGameComponent(GameComponent* gc);
+	void AddGameComponent(std::shared_ptr<GameComponent> gc);
+
+	std::unique_ptr<DisplayWin32> window;
+	std::unique_ptr<WinInput> wInput;
 
 
-
-
-	DisplayWin32* window;
-	WinInput* wInput;
-
+	Camera* camera;
+	CameraController* cameraController;
+	
 	DXGI_SWAP_CHAIN_DESC swapDesc;
-
 	Microsoft::WRL::ComPtr<ID3D11Device> device;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> context;
 	Microsoft::WRL::ComPtr <IDXGISwapChain> swapChain;
-	ID3D11RenderTargetView* rtv;
+	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> rtv;
+	Microsoft::WRL::ComPtr < ID3D11Texture2D> backTex;
+	Microsoft::WRL::ComPtr < ID3D11RasterizerState> rastState;
+	Microsoft::WRL::ComPtr <ID3D11DepthStencilView> depthStencilView;
+	Microsoft::WRL::ComPtr <ID3D11Texture2D> depthStencilBuffer;
+	Microsoft::WRL::ComPtr <ID3D11DepthStencilState> depthStencilState;
 	
-	HRESULT res;
+	
+	CB_VS_vertexshader worldViewData;
+	
 	bool isExitRequested = false;
 
-	ID3D11Texture2D* backTex;
-	ID3D11RasterizerState* rastState;
+	
+	std::vector<std::shared_ptr<GameComponent>> gameComponents;
 	
 
-	std::chrono::time_point<std::chrono::steady_clock> PrevTime;
-	float totalTime = 0;
-	unsigned int frameCount = 0;
+	
 
 
 private:
 	void GetInput();
 	void Render();
 	void Update();
-	std::vector<GameComponent*> gameComponents;
+	
+
+	std::chrono::time_point<std::chrono::steady_clock> PrevTime;
+	float totalTime = 0;
+	unsigned int frameCount = 0;
 };
 

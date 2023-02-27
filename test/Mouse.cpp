@@ -20,60 +20,7 @@ Mouse::Mouse()
 }
 
 
-void Mouse::OnLeftPressed(int x, int y)
-{
-	this->leftIsDown = true;
-	MouseEvent me(MouseEvent::EventType::LPress, x, y);
-	this->eventBuffer.push(me);
-}
 
-void Mouse::OnLeftReleased(int x, int y)
-{
-	this->leftIsDown = false;
-	this->eventBuffer.push(MouseEvent(MouseEvent::EventType::LRelease, x, y));
-
-
-}
-
-void Mouse::OnRightPressed(int x, int y)
-{
-	this->rightIsDown = true;
-	MouseEvent me(MouseEvent::EventType::RPress, x, y);
-	this->eventBuffer.push(me);
-}
-
-void Mouse::OnRightReleased(int x, int y)
-{
-	this->rightIsDown = false;
-	MouseEvent me(MouseEvent::EventType::RRelease, x, y);
-	this->eventBuffer.push(me);
-}
-
-void Mouse::OnMiddlePressed(int x, int y)
-{
-	this->mbuttonDown = true;
-	MouseEvent me(MouseEvent::EventType::MPress, x, y);
-	this->eventBuffer.push(me);
-}
-
-void Mouse::OnMiddleReleased(int x, int y)
-{
-	this->mbuttonDown = false;
-	MouseEvent me(MouseEvent::EventType::MRelease, x, y);
-	this->eventBuffer.push(me);
-}
-
-void Mouse::OnWheelUp(int x, int y)
-{
-	MouseEvent me(MouseEvent::EventType::WheelUp, x, y);
-	this->eventBuffer.push(me);
-}
-
-void Mouse::OnWheelDown(int x, int y)
-{
-	MouseEvent me(MouseEvent::EventType::WheelDown, x, y);
-	this->eventBuffer.push(me);
-}
 
 void Mouse::OnMouseMove(int x, int y)
 {
@@ -81,15 +28,15 @@ void Mouse::OnMouseMove(int x, int y)
 	this->prevY = this->y;
 	this->x = x;
 	this->y = y;
-	//this->eventBuffer.push(MouseEvent(MouseEvent::EventType::Move, x, y));
-	//OnMouseMoveRaw(x,y);
+	this->rawOffset.x = (this->x - this->prevX);
+	this->rawOffset.y = (this->y - this->prevY);
 
 }
 
 void Mouse::OnMouseMoveRaw(int x, int y)
 {
 
-	this->eventBuffer.push(MouseEvent(MouseEvent::EventType::RAW_MOVE, this->x-this->prevX, this->y-this->prevY));
+	
 }
 
 bool Mouse::IsLeftDown()
@@ -122,21 +69,3 @@ MousePoint Mouse::GetPos()
 	return { this->x,this->y };
 }
 
-bool Mouse::EventBufferIsEmpty()
-{
-	return this->eventBuffer.empty();
-}
-
-MouseEvent Mouse::ReadEvent()
-{
-	if (this->eventBuffer.empty())
-	{
-		return MouseEvent();
-	}
-	else
-	{
-		MouseEvent me = this->eventBuffer.front();
-		this->eventBuffer.pop();
-		return me;
-	}
-}

@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-static LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
+LRESULT CALLBACK HandleMessageSetup(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 {
 	switch (umessage)
 	{
@@ -29,7 +29,7 @@ DisplayWin32::DisplayWin32(Game* _game,LPCWSTR applicationName, HINSTANCE hInsta
 
 	game=_game;
 	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-	wc.lpfnWndProc = DefWindowProc;
+	wc.lpfnWndProc = HandleMessageSetup;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hInstance = hInstance;
@@ -64,7 +64,8 @@ DisplayWin32::DisplayWin32(Game* _game,LPCWSTR applicationName, HINSTANCE hInsta
 	SetFocus(hWnd);
 
 	ShowCursor(true);
-
+	clientHeight=screenHeight;
+	clientWidth=screenWidth;
 }
 
 DisplayWin32::~DisplayWin32()

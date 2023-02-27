@@ -3,42 +3,22 @@
 
 Game::Game(LPCWSTR applicationName, HINSTANCE hInstance, int width, int height)
 {
-	window = new DisplayWin32(this, applicationName, hInstance, width, height);
-	wInput = new WinInput(this);
-
+	
+	window = std::make_unique<DisplayWin32> (this, applicationName, hInstance, width, height);
+	wInput = std::make_unique<WinInput> (this);
 	
 }
 
 Game::~Game()
 {
-	delete wInput;
-	delete window;
-	for (auto i:gameComponents)
-	{
-		delete i;
-	}
 }
 
-//HWND Game::CreateWindow32(LPCWSTR applicationName, HINSTANCE hInstance, int width, int height)
-//{
-//	
-//	return window->GetHWND();
-//}
 
 HWND Game::GetWindow32HWND()
 {
 	return window->GetHWND();
 }
 
-void Game::SetFeatureLevel()
-{
-
-}
-
-void Game::SetSwapDesc(int buffCount, int RefreshRateNum, int RefreshRateDenominator, bool isWindowed)
-{
-	//Потом доделать
-}
 
 void Game::CreateDeviceAndSwapChain()
 {
@@ -84,23 +64,55 @@ void Game::CreateDeviceAndSwapChain()
 
 
 
-	res = swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&backTex);	// __uuidof(ID3D11Texture2D)
-	res = device->CreateRenderTargetView(backTex, nullptr, &rtv);
+	res = swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)backTex.GetAddressOf());	// __uuidof(ID3D11Texture2D)
+	res = device->CreateRenderTargetView(backTex.Get(), nullptr, rtv.GetAddressOf());
 }
 
-void Game::CompileFromFile(LPCWSTR fileName)
-{
 
-}
 
 void Game::InitializeDirectX()
 {
-	SetSwapDesc();
-
+	
 	CreateDeviceAndSwapChain();
 
-	for (auto i : gameComponents)
-		i->Initialize();
+	camera=new Camera();
+	camera->SetPosition(0.0f,0.0f,-2.0f);
+	camera->SetProjectionValues(90.0f,window->GetWidth()/window->GetHeight(), 0.1f, 1000.0f);
+
+	cameraController=new CameraController(camera,this);
+
+	D3D11_TEXTURE2D_DESC depthStencilDesc;
+	depthStencilDesc.Width = window->GetWidth();
+	depthStencilDesc.Height = window->GetHeight();
+	depthStencilDesc.MipLevels = 1;
+	depthStencilDesc.ArraySize = 1;
+	depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthStencilDesc.SampleDesc.Count = 1;
+	depthStencilDesc.SampleDesc.Quality = 0;
+	depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
+	depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	depthStencilDesc.CPUAccessFlags = 0;
+	depthStencilDesc.MiscFlags = 0;
+
+	HRESULT hr = this->device->CreateTexture2D(&depthStencilDesc, NULL, this->depthStencilBuffer.GetAddressOf());
+	
+
+	hr = this->device->CreateDepthStencilView(this->depthStencilBuffer.Get(), NULL, this->depthStencilView.GetAddressOf());
+
+	//context->OMSetRenderTargets(1, rtv.GetAddressOf(), nullptr);
+
+	D3D11_VIEWPORT viewport = {};
+	viewport.Width = static_cast<float>(800);
+	viewport.Height = static_cast<float>(800);
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
+	viewport.MinDepth = 0;
+	viewport.MaxDepth = 1.0f;
+
+	context->RSSetViewports(1, &viewport);
+
+	for (auto component = gameComponents.begin(); component != gameComponents.end(); component++)
+		component->get()->Initialize();
 }
 
 void Game::StartGameLoop()
@@ -112,15 +124,13 @@ void Game::StartGameLoop()
 		GetInput();
 		Update();
 		Render();
+		
 	}
-
-	
-
 }
 
-void Game::AddGameComponent(GameComponent* gc)
+void Game::AddGameComponent(std::shared_ptr<GameComponent> gc)
 {
-	gameComponents.push_back(gc);
+	gameComponents.push_back(std::move(gc));
 }
 
 
@@ -129,17 +139,29 @@ void Game::AddGameComponent(GameComponent* gc)
 void Game::GetInput()
 {
 	wInput->GetInput();
+	
+	
 }
 
 void Game::Render()
 {
-	float bgColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	context->ClearRenderTargetView(rtv, bgColor);
 
-	for (auto i : gameComponents)
-	{
-		i->Render();
-	}
+	float bgColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	context->ClearRenderTargetView(rtv.Get(), bgColor);
+	context->ClearDepthStencilView(depthStencilView.Get(),D3D11_CLEAR_DEPTH|D3D11_CLEAR_STENCIL,1.0f,0);
+	context->OMSetRenderTargets(1, rtv.GetAddressOf(), depthStencilView.Get());
+
+	DirectX::XMMATRIX world= DirectX::XMMatrixIdentity();
+	//camera->AdjustPosition(0.0f,0.01f,0.0f);
+	//camera->SetLookAtPos(DirectX::XMFLOAT3(0.0f,0.0f,0.0f));
+	worldViewData.projectMat= camera->GetProjectionMatrix();
+	worldViewData.viewMat=world*camera->GetViewMatrix();
+	
+	
+	
+
+	for (auto component = gameComponents.begin(); component != gameComponents.end(); component++)
+		component->get()->Render();
 
 	swapChain->Present(1, /*DXGI_PRESENT_DO_NOT_WAIT*/ 0);
 }
@@ -165,10 +187,10 @@ void Game::Update()
 		frameCount = 0;
 	}
 
-	for (auto vec : gameComponents)
-	{
-		vec->Update(deltaTime);
-	}
+	cameraController->CameraMovement(deltaTime);
+	
+	for (auto component = gameComponents.begin(); component != gameComponents.end(); component++)
+		component->get()->Update(deltaTime);
 }
 
 #pragma endregion

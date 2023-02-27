@@ -9,14 +9,7 @@ class Mouse
 
 public:
 	Mouse();
-	void OnLeftPressed(int x, int y);
-	void OnLeftReleased(int x, int y);
-	void OnRightPressed(int x, int y);
-	void OnRightReleased(int x, int y);
-	void OnMiddlePressed(int x, int y);
-	void OnMiddleReleased(int x, int y);
-	void OnWheelUp(int x, int y);
-	void OnWheelDown(int x, int y);
+
 	void OnMouseMove(int x, int y);
 	void OnMouseMoveRaw(int x, int y);
 
@@ -28,11 +21,9 @@ public:
 	int GetPosY();
 	MousePoint GetPos();
 
-	bool EventBufferIsEmpty();
-	MouseEvent ReadEvent();
+
 
 private:
-	std::queue<MouseEvent> eventBuffer;
 	bool leftIsDown = false;
 	bool rightIsDown = false;
 	bool mbuttonDown = false;
@@ -41,5 +32,6 @@ private:
 	int y = 0;
 	int prevX = 0;
 	int prevY = 0;
+	POINT rawOffset;
 };
 

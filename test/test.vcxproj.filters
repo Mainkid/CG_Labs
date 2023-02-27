@@ -13,18 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Исходные файлы\Keyboard">
-      <UniqueIdentifier>{bee0da0a-1790-4f43-940b-8089c7c96804}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\Keyboard">
-      <UniqueIdentifier>{18bb8924-0ee9-4b18-b7ae-c371bc1ff792}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\Mouse">
-      <UniqueIdentifier>{5805740a-ccd3-4e7b-bfde-110a2ec93649}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\Mouse">
-      <UniqueIdentifier>{8e3963af-c3e6-498b-a8bc-91f0056a1ce3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Исходные файлы\RenderComponent">
       <UniqueIdentifier>{2753acb9-f7e2-40a8-9b7a-65536aef3ac8}</UniqueIdentifier>
     </Filter>
@@ -54,49 +42,25 @@
     <ClCompile Include="DisplayWin32.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="WinInput.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyboardEvent.cpp">
-      <Filter>Исходные файлы\Keyboard</Filter>
-    </ClCompile>
-    <ClCompile Include="Keyboard.cpp">
-      <Filter>Исходные файлы\Keyboard</Filter>
-    </ClCompile>
-    <ClCompile Include="Mouse.cpp">
-      <Filter>Исходные файлы\Mouse</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseEvent.cpp">
-      <Filter>Исходные файлы\Mouse</Filter>
-    </ClCompile>
-    <ClCompile Include="GameComponent.cpp">
-      <Filter>Исходные файлы\RenderComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="TriangleComponent.cpp">
-      <Filter>Исходные файлы\RenderComponent</Filter>
-    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="AnotherComponent.cpp">
-      <Filter>Исходные файлы\RenderComponent</Filter>
+    <ClCompile Include="Camera\Camera.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="SimpleMath.cpp">
-      <Filter>Исходные файлы\DirectXSDK</Filter>
+    <ClCompile Include="Camera\CameraController.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="InputDevice.cpp">
-      <Filter>Исходные файлы\Input</Filter>
+    <ClCompile Include="DirectXSDK\Delegates.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="DotedLine.cpp">
-      <Filter>Исходные файлы\RenderComponent</Filter>
+    <ClCompile Include="Input\WinInput.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Ball.cpp">
-      <Filter>Исходные файлы\RenderComponent</Filter>
+    <ClCompile Include="RenderComponents\GameComponent.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="SimpleAI.cpp">
-      <Filter>Исходные файлы\RenderComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CG_Labs\test\Delegates.cpp">
+    <ClCompile Include="RenderComponents\Planet.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,56 +71,106 @@
     <ClInclude Include="DisplayWin32.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="WinInput.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyboardEvent.h">
-      <Filter>Файлы заголовков\Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="Keyboard.h">
-      <Filter>Файлы заголовков\Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="Mouse.h">
-      <Filter>Файлы заголовков\Mouse</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseEvent.h">
-      <Filter>Файлы заголовков\Mouse</Filter>
-    </ClInclude>
-    <ClInclude Include="GameComponent.h">
-      <Filter>Файлы заголовков\RenderComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="TriangleComponent.h">
-      <Filter>Файлы заголовков\RenderComponent</Filter>
-    </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="AnotherComponent.h">
-      <Filter>Файлы заголовков\RenderComponent</Filter>
     </ClInclude>
     <ClInclude Include="ConstantBufferTypes.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="SimpleMath.h">
-      <Filter>Файлы заголовков\DirectXSDK</Filter>
+    <ClInclude Include="Camera\Camera.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Delegates.h">
-      <Filter>Файлы заголовков\Input</Filter>
+    <ClInclude Include="Camera\CameraController.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="InputDevice.h">
-      <Filter>Файлы заголовков\Input</Filter>
+    <ClInclude Include="DirectXSDK\Delegates.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Keys.h">
-      <Filter>Файлы заголовков\Input</Filter>
+    <ClInclude Include="Input\Keys.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="DotedLine.h">
-      <Filter>Файлы заголовков\RenderComponent</Filter>
+    <ClInclude Include="Input\WinInput.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Ball.h">
-      <Filter>Файлы заголовков\RenderComponent</Filter>
+    <ClInclude Include="RenderComponents\GameComponent.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="SimpleAI.h">
-      <Filter>Файлы заголовков\RenderComponent</Filter>
+    <ClInclude Include="RenderComponents\Planet.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\tmp\Inc\SimpleMath.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\Audio.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\BufferHelpers.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\CommonStates.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\DDSTextureLoader.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\DirectXHelpers.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\Effects.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\GamePad.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\GeometricPrimitive.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\GraphicsMemory.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\Keyboard.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\Model.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\Mouse.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\PostProcess.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\PrimitiveBatch.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\ScreenGrab.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\SimpleMath.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\SpriteBatch.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\SpriteFont.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\VertexTypes.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\WICTextureLoader.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXSDK\XboxDDSTextureLoader.h">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Desktop\tmp\Inc\SimpleMath.inl">
+      <Filter>Файлы заголовков</Filter>
+    </None>
+    <None Include="DirectXSDK\SimpleMath.inl">
+      <Filter>Исходные файлы\DirectXSDK</Filter>
+    </None>
   </ItemGroup>
 </Project>

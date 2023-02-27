@@ -24,7 +24,6 @@ class DisplayWin32
 {
 public:
 	DisplayWin32(Game* _game,LPCWSTR applicationName, HINSTANCE hInstance, int screenHeight = 800, int screenWidth = 800);
-	
 
 	~DisplayWin32();
 

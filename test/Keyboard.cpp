@@ -2,99 +2,31 @@
 
 Keyboard::Keyboard()
 {
-	for (int i = 0; i < 256; i++)
-		this->keyStates[i] = false;
+	keys = new std::unordered_set<Keys>();
 }
 
-bool Keyboard::KeyIsPressed(const unsigned char keycode)
+void Keyboard::OnKeyDown(InputEvents::KeyboardEvent args)
 {
-	return this->keyStates[keycode];
+
 }
 
-bool Keyboard::KeyBufferIsEmpty()
+Keyboard::~Keyboard()
 {
-	return this->keyBuffer.empty();
+	delete keys;
 }
 
-bool Keyboard::CharBufferIsEmpty()
+void Keyboard::AddPressedKey(Keys key)
 {
-	return this->charBuffer.empty();
+	keys->insert(key);
 }
 
-KeyboardEvent Keyboard::ReadKey()
+void Keyboard::RemovePressedKey(Keys key)
 {
-	if (this->keyBuffer.empty())
-	{
-		return KeyboardEvent();
-	}
-	else
-	{
-		KeyboardEvent e = this->keyBuffer.front();
-		this->keyBuffer.pop();
-		return e;
-
-	}
+	keys->erase(key);
 }
 
-unsigned char Keyboard::ReadChar()
+bool Keyboard::IsKeyDown(Keys key)
 {
-	if (this->charBuffer.empty())
-	{
-		return 0u;
-	}
-	else
-	{
-		unsigned char e = this->charBuffer.front();
-		this->charBuffer.pop();
-		return e;
-	}
+	return keys->count(key);
 }
 
-void Keyboard::OnKeyPressed(const unsigned char key)
-{
-	this->keyStates[key] = true;
-	this->keyBuffer.push(KeyboardEvent(KeyboardEvent::Press, key));
-
-}
-
-void Keyboard::OnKeyReleased(const unsigned char key)
-{
-	this->keyStates[key] = false;
-	this->keyBuffer.push(KeyboardEvent(KeyboardEvent::Release, key));
-
-}
-
-void Keyboard::OnChar(const unsigned char key)
-{
-	this->charBuffer.push(key);
-}
-
-void Keyboard::EnableAutoRepeatKeys()
-{
-	this->autoRepeatKeys = true;
-}
-
-void Keyboard::DisableAutoRepeatKeys()
-{
-	this->autoRepeatKeys = false;
-}
-
-void Keyboard::EnableAutoRepeatChars()
-{
-	this->autoRepeatChars = true;
-}
-
-void Keyboard::DisableAutoRepeatChars()
-{
-	this->autoRepeatChars = false;
-}
-
-bool Keyboard::IsKeysAutoRepeat()
-{
-	return this->autoRepeatKeys;
-}
-
-bool Keyboard::IsCharsAutoRepeat()
-{
-	return this->autoRepeatChars;
-}
